@@ -1,1 +1,408 @@
-<h1> Merry Christmas 🎄</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Navidad! 🎄</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Festive&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mountains of Christmas', 'Festive', cursive, serif;
+            background: linear-gradient(135deg, #1a472a 0%, #0d2818 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Snowflakes animation */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Christmas lights */
+        .lights {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .light {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        .light:nth-child(odd) {
+            background-color: #ff0000;
+            box-shadow: 0 0 20px #ff0000;
+        }
+
+        .light:nth-child(even) {
+            background-color: #00ff00;
+            box-shadow: 0 0 20px #00ff00;
+            animation-delay: 0.75s;
+        }
+
+        .light:nth-child(3n) {
+            background-color: #ffff00;
+            box-shadow: 0 0 20px #ffff00;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Main container */
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+                             0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                             0 0 30px rgba(255, 255, 255, 0.5),
+                             0 0 40px rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        /* Christmas button */
+        .christmas-button {
+            font-family: 'Mountains of Christmas', 'Festive', cursive, serif;
+            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            border: 4px solid #ffd700;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 25px 50px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.5),
+                        inset 0 -2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .christmas-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(196, 30, 58, 0.7),
+                        inset 0 -2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .christmas-button:active {
+            transform: scale(0.95);
+        }
+
+        .christmas-button::before {
+            content: '🎄';
+            position: absolute;
+            left: 20px;
+            font-size: 1.2em;
+        }
+
+        .christmas-button::after {
+            content: '🎄';
+            position: absolute;
+            right: 20px;
+            font-size: 1.2em;
+        }
+
+        /* Message display */
+        .message {
+            margin-top: 40px;
+            font-size: 2.5em;
+            color: #ffd700;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: scale(1);
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Santa popup */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup-content {
+            position: relative;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .popup-content img {
+            max-width: 500px;
+            max-height: 500px;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .text-top, .text-bottom {
+            text-align: center;
+            font-size: 3.5em;
+            color: #ffd700;
+            font-weight: bold;
+            text-shadow: 
+                3px 3px 0 #c41e3a,
+                -3px -3px 0 #c41e3a,
+                3px -3px 0 #c41e3a,
+                -3px 3px 0 #c41e3a,
+                0 0 20px rgba(255, 215, 0, 0.8);
+            margin: 0;
+            padding: 10px;
+        }
+
+        .text-top {
+            margin-bottom: 10px;
+        }
+
+        .text-bottom {
+            margin-top: 10px;
+        }
+
+        /* Decorative elements */
+        .decoration {
+            position: absolute;
+            font-size: 3em;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .decoration:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .decoration:nth-child(2) { top: 20%; right: 10%; animation-delay: 0.5s; }
+        .decoration:nth-child(3) { bottom: 15%; left: 15%; animation-delay: 1s; }
+        .decoration:nth-child(4) { bottom: 10%; right: 15%; animation-delay: 1.5s; }
+    </style>
+</head>
+<body>
+    <!-- Christmas lights -->
+    <div class="lights">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </div>
+
+    <!-- Decorative elements -->
+    <div class="decoration">🎅</div>
+    <div class="decoration">⭐</div>
+    <div class="decoration">🎁</div>
+    <div class="decoration">🔔</div>
+
+    <!-- Main container -->
+    <div class="container">
+        <h1>🎄</h1>
+        <button class="christmas-button" onclick="showSanta()">
+            Click me for a surprise!
+        </button>
+        <div class="message" id="message">
+            ¡Feliz Navidad Somos Familia! 🎉
+        </div>
+    </div>
+
+    <!-- Santa Popup -->
+    <div class="popup-overlay" id="santaPopup" onclick="closePopup()">
+        <div class="popup-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closePopup()">×</button>
+            <div class="text-top">¡Feliz Navidad! 🎄</div>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Santa Claus" id="santaImage">
+            <div class="text-bottom">Somos Familia! 🎅</div>
+        </div>
+    </div>
+
+    <script>
+        // Show Santa popup function
+        function showSanta() {
+            const popup = document.getElementById('santaPopup');
+            popup.classList.add('show');
+            createConfetti();
+            
+            // Load the Santa image
+            const santaImg = document.getElementById('santaImage');
+            santaImg.src = 'santa2.png';
+        }
+
+        // Close popup function
+        function closePopup() {
+            const popup = document.getElementById('santaPopup');
+            popup.classList.remove('show');
+        }
+
+        // Show message function (kept for compatibility)
+        function showMessage() {
+            const message = document.getElementById('message');
+            message.classList.add('show');
+            createConfetti();
+        }
+
+        // Create snowflakes
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+            snowflake.style.fontSize = Math.random() * 1 + 0.5 + 'em';
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 8000);
+        }
+
+        // Generate snowflakes periodically
+        setInterval(createSnowflake, 200);
+
+        // Create confetti effect when button is clicked
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#ffd700', '#ffffff'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'absolute';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = '50%';
+                    confetti.style.top = '50%';
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = '1000';
+                    document.body.appendChild(confetti);
+
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = Math.random() * 10 + 5;
+                    const vx = Math.cos(angle) * velocity;
+                    const vy = Math.sin(angle) * velocity;
+
+                    let x = 0, y = 0;
+                    const animation = setInterval(() => {
+                        x += vx;
+                        y += vy + 0.5;
+                        confetti.style.transform = `translate(${x}px, ${y}px)`;
+                        confetti.style.opacity = Math.max(0, 1 - y / 300);
+
+                        if (y > 300) {
+                            clearInterval(animation);
+                            confetti.remove();
+                        }
+                    }, 20);
+                }, i * 10);
+            }
+        }
+    </script>
+</body>
+</html>
